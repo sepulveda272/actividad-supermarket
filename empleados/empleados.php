@@ -1,9 +1,14 @@
 
 <?php
+ini_set("display_errors", 1);
 
-require_once("config.php");
+ini_set("display_startup_errors", 1);
 
-$data = new Config();
+error_reporting(E_ALL);
+
+require_once("../config.php");
+
+$data = new ConfigEmpleados();
 
 $all = $data-> obtainAll();
 
@@ -25,7 +30,7 @@ $all = $data-> obtainAll();
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
-  <link rel="stylesheet" type="text/css" href="css/estudiantes.css">
+  <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
 
@@ -36,7 +41,7 @@ $all = $data-> obtainAll();
 
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
-        <img src="images/sepulveda.jpg" alt="" class="imagenPerfil">
+        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
         <h3>Juan Sepulveda</h3>
       </div>
       <div class="menus">
@@ -44,34 +49,34 @@ $all = $data-> obtainAll();
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
-        <a href="estudiantes.php" style="display: flex;gap:1px;">
-          <i class="bi bi-people"></i>
-          <h3 style="margin: 0px;font-weight: 800;">Estudiantes</h3>
-        </a>
-        <a href="categoria.php" style="display: flex;gap:2px;">
+        
+        <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Categoria</h3>
+          <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
         <a href="empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
-        <a href="clientes.php" style="display: flex;gap:2px;">
+        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
-        <a href="provedores.php" style="display: flex;gap:2px;">
+        <a href="../proveedaores/provedores.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Proveedores</h3>
         </a>
-
+        <a href="../facturas/facturas.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Facturas</h3>
+        </a>
 
       </div>
     </div>
 
     <div class="parte-media">
       <div style="display: flex; justify-content: space-between;">
-        <h2>Estudiantes</h2>
+        <h2>Empleados</h2>
         <button class="btn-m" data-bs-toggle="modal" data-bs-target="#registrarEstudiantes"><i class="bi bi-person-add " style="color: rgb(255, 255, 255);" ></i></button>
       </div>
       <div class="menuTabla contenedor2">
@@ -79,15 +84,10 @@ $all = $data-> obtainAll();
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">IMAGEN</th>
-              <th scope="col">NOMBRES</th>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">CELULAR</th>
               <th scope="col">DIRECCION</th>
-              <th scope="col">LOGROS</th>
-              <th scope="col">SER</th>
-              <th scope="col">INGLES</th>
-              <th scope="col">REVIEW</th>
-              <th scope="col">SKILLS</th>
-              <th scope="col">ESPECIALIDAD</th>
+              <th scope="col">IMAGEN</th>
               <th scope="col">BORRAR</th>
             </tr>
           </thead>
@@ -109,25 +109,20 @@ $all = $data-> obtainAll();
 
             <tr>
               <td class=""><?php echo $val['id']?></td>
-              <td><img class="imagenE" src="images/<?php echo $val['imagen']?>" alt="nada"></td>
               <td><?php echo $val['nombre']?></td>
+              <td><?php echo $val['celular']?></td>
               <td><?php echo $val['direccion']?></td>
-              <td><?php echo $val['logros']?></td>
-              <td><?php echo $val['ser']?></td>
-              <td><?php echo $val['ingles']?></td>
-              <td><?php echo $val['review']?></td>
-              <td><?php echo $val['skllis']?></td>
-              <td><?php echo $val['especialidad']?></td>
+              <td><img class="imagenE" src="../images/<?php echo $val['imagen']?>" alt="nada"></td>
               <td>
-                <a class="btn btn-danger" href="borrarEstudiantes.php?id=<?=$val['id']?>&req=delete">Borrar</a>
-                <a class="btn btn-warning" href="actualizarEstudiantes.php?id=<?=$val['id']?>">Editar</a>
+                <a class="btn btn-danger" href="borrarEmpleado.php?id=<?=$val['id']?>&req=delete">Borrar</a>
+                <a class="btn btn-warning" href="actualizarEmpleado.php?id=<?=$val['id']?>">Editar</a>
               </td>
             </tr>
             <?php } ?>
 
           </tbody>
         
-        </table>
+       </table>
 
       </div>
 
@@ -150,17 +145,27 @@ $all = $data-> obtainAll();
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
         <div class="modal-content" >
           <div class="modal-header" >
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Estudiante</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Empleado</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" style="background-color: rgb(231, 253, 246);">
-            <form class="col d-flex flex-wrap" action="registrarEstudiantes.php" method="post">
+            <form class="col d-flex flex-wrap" action="registrarEmpleado.php" method="post">
               <div class="mb-1 col-12">
-                <label for="nombres" class="form-label">Nombres</label>
+                <label for="nombre" class="form-label">Nombres</label>
                 <input 
                   type="text"
-                  id="nombres"
-                  name="nombres"
+                  id="nombre"
+                  name="nombre"
+                  class="form-control"  
+                />
+              </div>
+
+              <div class="mb-1 col-12">
+                <label for="celular" class="form-label">Celular</label>
+                <input 
+                  type="number"
+                  id="celular"
+                  name="celular"
                   class="form-control"  
                 />
               </div>
@@ -174,68 +179,9 @@ $all = $data-> obtainAll();
                   class="form-control"  
                 />
               </div>
-
+              
               <div class="mb-1 col-12">
-                <label for="logros" class="form-label">Logros</label>
-                <input 
-                  type="text"
-                  id="logros"
-                  name="logros"
-                  class="form-control"  
-                 
-                />
-              </div>
-              <div class="mb-1 col-6">
-                <label for="ser" class="form-label">Ser</label>
-                <input 
-                  type="number"
-                  id="ser"
-                  name="ser"
-                  class="form-control"  
-                 
-                />
-              </div>
-              <div class="mb-1 col-6">
-                <label for="ingles" class="form-label">Ingles</label>
-                <input 
-                  type="number"
-                  id="ingles"
-                  name="ingles"
-                  class="form-control"  
-                 
-                />
-              </div>
-              <div class="mb-1 col-6">
-                <label for="review" class="form-label">Review</label>
-                <input 
-                  type="number"
-                  id="review"
-                  name="review"
-                  class="form-control"  
-                 
-                />
-              </div>
-              <div class="mb-1 col-6">
-                <label for="skllis" class="form-label">Skllis</label>
-                <input e
-                  type="number"
-                  id="skllis"
-                  name="skllis"
-                  class="form-control"  
-                 
-                />
-              </div>
-              <div class="mb-1 col-12">
-                <label for="especialidad" class="form-label">Especialidad</label>
-                <select class= "form-control" name="especialidad" id="especialidad">
-                  <option value="">Selecione la especialidad</option>
-                  <option value="Front-End">Front-End</option>
-                  <option value="Back-End">Back-End</option>
-                  <option value="Full-Stack">Full-Stack</option>
-                </select>
-              </div>
-              <div class="mb-1 col-12">
-                <label for="imagen" class="form-label">Imagenn</label>
+                <label for="imagen" class="form-label">Imagen</label>
                 <input e
                   type="file"
                   id="imagen"

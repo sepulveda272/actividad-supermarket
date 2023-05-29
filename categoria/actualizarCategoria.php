@@ -1,7 +1,7 @@
 <?php
 //primer paso
-require_once("config.php");
-$data = new ConfigClientes();
+require_once(__DIR__ . "/../config.php");
+$data = new ConfigCategorias();
 
 $id = $_GET['id'];
 $data->setId($id);
@@ -10,18 +10,19 @@ $record = $data->selectOne();
 /* print_r($record); */
 
 $val = $record[0];
-
+echo "<br>";
+echo "<br>";
 /* print_r($val);*/
 
 //segundo paso
 
 if (isset($_POST['editar'])){
-    $data ->setCelular($_POST['celular']);
-    $data ->setCompañia($_POST['compañia']);
-    
+    $data ->setNombre($_POST['nombre']);
+    $data ->setDescripcion($_POST['descripcion']);
+    $data ->setImagen($_POST['imagen']);
 
     $data ->update();
-    echo "<script>alert('Datos87 actualizados satisfactoriamente');document.location='clientes.php'</script>";
+    echo "<script>alert('Datos87 actualizados satisfactoriamente');document.location='categoria.php'</script>";
 }
 ?>
 
@@ -41,7 +42,7 @@ if (isset($_POST['editar'])){
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
-  <link rel="stylesheet" type="text/css" href="css/estudiantes.css">
+  <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
 
@@ -52,64 +53,80 @@ if (isset($_POST['editar'])){
 
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camp Skiler.</h3>
-        <img src="images/Diseño sin título.png" alt="" class="imagenPerfil">
+        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
         <h3 >Maicol Estrada</h3>
       </div>
       <div class="menus">
-        <a href="home.html" style="display: flex;gap:2px;">
+      <a href="home.html" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;font-weight: 800;">Home</h3>
         </a>
-        <a href="/Estudiantes/Estudiantes.html" style="display: flex;gap:2px;">
-          <i class="bi bi-people"></i>
-          <h3 style="margin: 0px;">Estudiantes</h3>
-        </a>
+        
 
         <a href="categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
 
-        <a href="empleados.php" style="display: flex;gap:2px;">
+        <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
 
-        <a href="clientes.php" style="display: flex;gap:2px;">
+        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
+
+        <a href="../proveedaores/provedores.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Proveedores</h3>
+        </a>
+        <a href="../facturas/facturas.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Facturas</h3>
+        </a>
+
         
       </div>
     </div>
 
     <div class="parte-media">
-        <h2 class="m-2">Estudiante a Editar</h2>
+        <h2 class="m-2">Categoria a Editar</h2>
       <div class="menuTabla contenedor2">
       <form class="col d-flex flex-wrap" action=""  method="post">
-              
+              <div class="mb-1 col-12">
+                <label for="nombre" class="form-label">Nombres</label>
+                <input 
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  class="form-control"  
+                  value="<?php echo $val['nombre']?>"
+                />
+              </div>
 
               <div class="mb-1 col-12">
-                <label for="celular" class="form-label">Celular</label>
+                <label for="descripcion" class="form-label">Descripcion</label>
                 <input 
-                  type="number"
-                  id="celular"
-                  name="celular"
+                  type="text"
+                  id="descripcion"
+                  name="descripcion"
                   class="form-control"  
-                  value="<?php echo $val['celular']?>"
+                  value="<?php echo $val['descripcion']?>"
                  
                 />
               </div>
 
               <div class="mb-1 col-12">
-                <label for="compañia" class="form-label">Compañia</label>
+                <label for="imagen" class="form-label">Imagen</label>
                 <input 
-                  type="text"
-                  id="compañia"
-                  name="compañia"
+                  type="file"
+                  id="imagen"
+                  name="imagen"
                   class="form-control"  
-                  value="<?php echo $val['compañia']?>"
-                 
+                  value="<?php echo $val['imagen']?>"
+                  
                 />
               </div>
 

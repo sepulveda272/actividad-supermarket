@@ -6,7 +6,7 @@ ini_set("display_startup_errors", 1);
 
 error_reporting(E_ALL);
 
-require_once("config.php");
+require_once("../config.php");
 
 $data = new ConfigProveedores();
 
@@ -30,7 +30,7 @@ $all = $data-> obtainAll();
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
-  <link rel="stylesheet" type="text/css" href="css/estudiantes.css">
+  <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
 
@@ -41,7 +41,7 @@ $all = $data-> obtainAll();
 
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
-        <img src="images/sepulveda.jpg" alt="" class="imagenPerfil">
+        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
         <h3>Juan Sepulveda</h3>
       </div>
       <div class="menus">
@@ -49,25 +49,26 @@ $all = $data-> obtainAll();
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
-        <a href="estudiantes.php" style="display: flex;gap:1px;">
-          <i class="bi bi-people"></i>
-          <h3 style="margin: 0px;font-weight: 800;">Estudiantes</h3>
-        </a>
-        <a href="categoria.php" style="display: flex;gap:2px;">
+        
+        <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
-        <a href="empleados.php" style="display: flex;gap:2px;">
+        <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
-        <a href="clientes.php" style="display: flex;gap:2px;">
+        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
         <a href="provedores.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Proveedores</h3>
+        </a>
+        <a href="../facturas/facturas.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Facturas</h3>
         </a>
 
       </div>

@@ -1,17 +1,8 @@
 CREATE DATABASE campusv2
 
-CREATE TABLE campers(
-    id INT primary key auto_increment,
-    imagen VARBINARY(50),
-    nombre VARCHAR(50) not null,
-    direccion VARCHAR(50),
-    logros VARCHAR(60),
-    ser SMALLINT(2),
-    ingles SMALLINT(2),
-    review SMALLINT(2),
-    skllis SMALLINT(2),
-    especialidad VARCHAR(50)
-);
+
+
+
 
 
 
@@ -54,11 +45,13 @@ CREATE TABLE empleado(
 
 -- ////////////////////////FACTURA////////////////////////
 
-CREATE TABLE Factura(
-    id_factura INTEGER PRIMARY KEY,
-    id_empleado INT,
+CREATE TABLE facturas(
+    id INT PRIMARY KEY AUTO_INCREMENT,
     id_cliente INT,
-    fecha_factura VARCHAR (50) NOT NULL
+    id_empleado INT,
+    fecha VARCHAR(50),
+    Foreign Key fk_id_empleado (id_empleado) REFERENCES empleado(id),
+    Foreign Key fk_id_cliente (id_cliente) REFERENCES clientes(id)
 );
 
 

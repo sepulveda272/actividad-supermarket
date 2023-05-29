@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_POST['guardar'])) {
-    require_once('config.php');
+    require_once('../config.php');
 
     $config = new ConfigClientes();
 

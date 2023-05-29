@@ -6,12 +6,6 @@ ini_set("display_startup_errors", 1);
 
 error_reporting(E_ALL);
 
-require_once("config.php");
-
-$data = new ConfigCategorias();
-
-$all = $data-> obtainAll();
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +24,7 @@ $all = $data-> obtainAll();
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
-  <link rel="stylesheet" type="text/css" href="css/estudiantes.css">
+  <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
 
@@ -41,7 +35,7 @@ $all = $data-> obtainAll();
 
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
-        <img src="images/sepulveda.jpg" alt="" class="imagenPerfil">
+        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
         <h3>Juan Sepulveda</h3>
       </div>
       <div class="menus">
@@ -49,25 +43,26 @@ $all = $data-> obtainAll();
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
-        <a href="estudiantes.php" style="display: flex;gap:1px;">
-          <i class="bi bi-people"></i>
-          <h3 style="margin: 0px;font-weight: 800;">Estudiantes</h3>
-        </a>
-        <a href="categoria.php" style="display: flex;gap:2px;">
+        
+        <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
-        <a href="empleados.php" style="display: flex;gap:2px;">
+        <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
-        <a href="clientes.php" style="display: flex;gap:2px;">
+        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
-        <a href="provedores.php" style="display: flex;gap:2px;">
+        <a href="../proveedaores/provedores.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Proveedores</h3>
+        </a>
+        <a href="facturas.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Facturas</h3>
         </a>
 
       </div>
@@ -75,7 +70,7 @@ $all = $data-> obtainAll();
 
     <div class="parte-media">
       <div style="display: flex; justify-content: space-between;">
-        <h2>Categorias</h2>
+        <h2>Factura</h2>
         <button class="btn-m" data-bs-toggle="modal" data-bs-target="#registrarEstudiantes"><i class="bi bi-person-add " style="color: rgb(255, 255, 255);" ></i></button>
       </div>
       <div class="menuTabla contenedor2">
@@ -83,39 +78,16 @@ $all = $data-> obtainAll();
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">NOMBRE</th>
-              <th scope="col">DESCCRIPCION</th>
-              <th scope="col">IMAGEN</th>
+              <th scope="col">EMPLEADO</th>
+              <th scope="col">CLIENTE</th>
+              <th scope="col">FECHA</th>
               <th scope="col">BORRAR</th>
             </tr>
           </thead>
           <tbody class="" id="tabla">
 
             <!-- ///////Llenado DInamico desde la Base de Datos -->
-            <?php
-
-              foreach ($all as $key => $val){
-                /* echo '<tr>';
-                echo '<td>'. $key. '</td>';
-                echo '<td>'. $val->nombre. '</td>';
-                echo '<td>'. $val->diametro. '</td>';
-                echo '<td>'. $val->logradouro. '</td>';
-                echo '<td>'. $val->detalle. '</td>'; */
-              
-
-            ?>
-
-            <tr>
-              <td class=""><?php echo $val['id']?></td>
-              <td><?php echo $val['nombre']?></td>
-              <td><?php echo $val['descripcion']?></td>
-              <td><img class="imagenE" src="imagesCa/<?php echo $val['imagen']?>" alt="nada"></td>
-              <td>
-                <a class="btn btn-danger" href="borrarCategoria.php?id=<?=$val['id']?>&req=delete">Borrar</a>
-                <a class="btn btn-warning" href="actualizarCategoria.php?id=<?=$val['id']?>">Editar</a>
-              </td>
-            </tr>
-            <?php } ?>
+            
 
           </tbody>
         
@@ -142,40 +114,34 @@ $all = $data-> obtainAll();
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
         <div class="modal-content" >
           <div class="modal-header" >
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Categoria</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva factura</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" style="background-color: rgb(231, 253, 246);">
-            <form class="col d-flex flex-wrap" action="registrasCategoria.php" method="post">
+            <form class="col d-flex flex-wrap" action="registrarFactura.php" method="post">
               <div class="mb-1 col-12">
-                <label for="nombre" class="form-label">Nombres</label>
-                <input 
-                  type="text"
-                  id="nombre"
-                  name="nombre"
-                  class="form-control"  
-                />
+                <label for="id_empleado" class="form-label">Empleado</label>
+                <select class="form-control" name="id_empleado" id="id_empleado">
+                  <option value="">Seleccione empleado</option>
+                  <option value="id_empleado">coso</option>
+                </select>
               </div>
 
               <div class="mb-1 col-12">
-                <label for="descripcion" class="form-label">Descripcion</label>
-                <input 
-                  type="text"
-                  id="descripcion"
-                  name="descripcion"
-                  class="form-control"  
-                />
+                <label for="id_cliente" class="form-label">Cliente</label>
+                <select class="form-control" name="id_cliente" id="id_cliente">
+                  <option value="">Seleccione cliente</option>
+                  <option value="id_cliente">cosa</option>
+                </select>
               </div>
 
-              
               <div class="mb-1 col-12">
-                <label for="imagen" class="form-label">Imagen</label>
-                <input e
-                  type="file"
-                  id="imagen"
-                  name="imagen"
+                <label for="fecha" class="form-label">Fecha</label>
+                <input 
+                  type="date"
+                  id="fecha"
+                  name="fecha"
                   class="form-control"  
-                 
                 />
               </div>
 

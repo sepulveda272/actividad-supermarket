@@ -1,6 +1,6 @@
 <?php
 //primer paso
-require_once("config.php");
+require_once("../config.php");
 $data = new ConfigProveedores();
 
 $id = $_GET['id'];
@@ -42,7 +42,7 @@ if (isset($_POST['editar'])){
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
 
-  <link rel="stylesheet" type="text/css" href="css/estudiantes.css">
+  <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
 
@@ -53,7 +53,7 @@ if (isset($_POST['editar'])){
 
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camp Skiler.</h3>
-        <img src="images/Diseño sin título.png" alt="" class="imagenPerfil">
+        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
         <h3 >Maicol Estrada</h3>
       </div>
       <div class="menus">
@@ -61,22 +61,19 @@ if (isset($_POST['editar'])){
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;font-weight: 800;">Home</h3>
         </a>
-        <a href="/Estudiantes/Estudiantes.html" style="display: flex;gap:2px;">
-          <i class="bi bi-people"></i>
-          <h3 style="margin: 0px;">Estudiantes</h3>
-        </a>
+        
 
-        <a href="categoria.php" style="display: flex;gap:2px;">
+        <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
 
-        <a href="empleados.php" style="display: flex;gap:2px;">
+        <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
 
-        <a href="clientes.php" style="display: flex;gap:2px;">
+        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
@@ -84,12 +81,16 @@ if (isset($_POST['editar'])){
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Proveedores</h3>
         </a>
+        <a href="../facturas/facturas.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Facturas</h3>
+        </a>
         
       </div>
     </div>
 
     <div class="parte-media">
-        <h2 class="m-2">Estudiante a Editar</h2>
+        <h2 class="m-2">Proveedores a Editar</h2>
       <div class="menuTabla contenedor2">
       <form class="col d-flex flex-wrap" action=""  method="post">
               <div class="mb-1 col-12">

@@ -60,6 +60,10 @@ $all = $data-> obtainAll();
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
         </a>
+        <a href="provedores.php" style="display: flex;gap:2px;">
+        <i class="bi bi-cart-check"></i>
+          <h3 style="margin: 0px;">Proveedores</h3>
+        </a>
 
 
       </div>

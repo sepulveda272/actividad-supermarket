@@ -4,7 +4,7 @@ if (isset($_POST['guardar'])) {
     require_once('../config.php');
 
     $config = new ConfigClientes();
-
+    $config -> setNombre($_POST['nombre']);
     $config -> setCelular($_POST['celular']);
     $config -> setCompañia($_POST['compañia']);
 

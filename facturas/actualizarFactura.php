@@ -1,36 +1,39 @@
 <?php
-ini_set("display_errors", 1);
+require_once("facturas.php");
+$data = new ConfigFacturas();
+$idFactura = $_GET["facturaId"];
+$idEmpleado = $_GET["empleadoId"];
+$idCliente= $_GET["clienteId"]; 
 
-ini_set("display_startup_errors", 1);
+$data->setFacturaId($idFactura);
+$data->setEmpleadoId($idEmpleado);
+$data->setClienteId($idCliente);
 
-error_reporting(E_ALL);
-//primer paso
-require_once("../config.php");
-$data = new ConfigEmpleados();
 
-$id = $_GET['id'];
-$data->setId($id);
+$empleado = $data->EmpleadoId();
+$cliente = $data->ClienteId();
+
+$idempleados = $data->obtenerEmpleadoId();
+$idclientes = $data->obtenerClienteId();
 
 $record = $data->selectOne();
-/* print_r($record); */
-
 $val = $record[0];
 
-/* print_r($val);*/
+if (isset($_POST["editar"])) {
 
-//segundo paso
+  $data->setFacturaId($_POST["facturaId"]);
+  $data->setEmpleadoId($_POST["empleadoId"]);
+  $data->setClienteId($_POST["clienteId"]);
+  $data->setFecha($_POST["fecha"]);
 
-if (isset($_POST['editar'])){
-    $data ->setNombre($_POST['nombre']);
-    $data ->setCelular($_POST['celular']);
-    $data ->setDireccion($_POST['direccion']);
-    
-
-    $data ->update();
-    echo "<script>alert('Datos actualizados satisfactoriamente');document.location='empleados.php'</script>";
+  $data->update();
+   echo "
+    <script> alert('Los Datos fueron Actualizados exitosamente');
+    document.location='facturas.php'
+    </script>"; 
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +41,7 @@ if (isset($_POST['editar'])){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actualizar Empleado</title>
+  <title>Actualizar Categorias</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
@@ -56,28 +59,24 @@ if (isset($_POST['editar'])){
 
     <div class="parte-izquierda">
 
-      <div class="perfil">
-        <h3 style="margin-bottom: 2rem;">Camp Skiler.</h3>
+    <div class="perfil">
+        <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
         <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
-        <h3 >Juan David</h3>
+        <h3>Juan David</h3>
       </div>
       <div class="menus">
-      <a href="home.html" style="display: flex;gap:2px;">
+      <a href="/Home/home.php" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
-          <h3 style="margin: 0px;font-weight: 800;">Home</h3>
+          <h3 style="margin: 0px;">Home</h3>
         </a>
-        
-
         <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
         </a>
-
         <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Empleados</h3>
         </a>
-
         <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Clientess</h3>
@@ -90,45 +89,62 @@ if (isset($_POST['editar'])){
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Facturas</h3>
         </a>
-        
       </div>
     </div>
 
     <div class="parte-media">
-        <h2 class="m-2">Empleado a Editar</h2>
+        <h2 class="m-2">Facturas a Editar</h2>
       <div class="menuTabla contenedor2">
       <form class="col d-flex flex-wrap" action=""  method="post">
+
               <div class="mb-1 col-12">
-                <label for="nombre" class="form-label">Nombres</label>
-                <input 
-                  type="text"
-                  id="nombre"
-                  name="nombre"
-                  class="form-control"  
-                  value="<?php echo $val['nombre']?>"
-                />
+                <label for="empleadoId" class="form-label">Empleado ID</label>
+                <select class="form-select" aria-label="Default select example" id="empleadoId" name="empleadoId" required>
+                  <?php
+                    foreach($idEmpleado as $key => $valor){
+                    ?> 
+                  <option selected value="<?= $empleado["id"]?>"><?= $empleado["nombre"]?></option>
+                  <?php
+                    }
+                  ?>
+                  <?php
+                    foreach($idempleados as $key => $valor){
+                    ?> 
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <?php
+                    }
+                  ?>
+                </select>
               </div>
 
               <div class="mb-1 col-12">
-                <label for="celular" class="form-label">Celular</label>
-                <input 
-                  type="number"
-                  id="celular"
-                  name="celular"
-                  class="form-control"  
-                  value="<?php echo $val['celular']?>"
-                 
-                />
+                <label for="clienteId" class="form-label">Cliente Id</label>
+                <select class="form-select" aria-label="Default select example" id="clienteId" name="clienteId" required>
+                  <?php
+                    foreach($idCliente as $key => $valor){
+                    ?> 
+                  <option selected value="<?= $cliente["id"]?>"><?= $cliente["nombre"]?></option>
+                  <?php
+                    }
+                  ?>
+                  <?php
+                    foreach($idclientes as $key => $valor){
+                    ?> 
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <?php
+                    }
+                  ?>
+                </select>
               </div>
 
               <div class="mb-1 col-12">
-                <label for="direccion" class="form-label">Direccion</label>
+                <label for="fecha" class="form-label">Fecha</label>
                 <input 
-                  type="text"
-                  id="direccion"
-                  name="direccion"
+                  type="date"
+                  id="fecha"
+                  name="fecha"
                   class="form-control"  
-                  value="<?php echo $val['direccion']?>"
+                  value="<?= $val["fecha"]?>"
                  
                 />
               </div>
@@ -142,7 +158,7 @@ if (isset($_POST['editar'])){
     </div>
 
     <div class="parte-derecho " id="detalles">
-      <h3>Detalle Estudiantes</h3>
+      <h3>Detalle Proveedores</h3>
       <p>Cargando...</p>
        <!-- ///////Generando la grafica -->
 

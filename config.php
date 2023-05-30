@@ -218,12 +218,14 @@ error_reporting(E_ALL);
 
     class ConfigClientes extends ConexionPDO{
         private $id;
+        private $nombre;
         private $celular;
         private $compañia;
         
 
-        public function __construct($id = 0, $celular=0,$compañia=""){
+        public function __construct($id = 0, $nombre ='', $celular=0,$compañia=""){
             $this -> id = $id;
+            $this -> nombre = $nombre;
             $this -> celular = $celular;
             $this -> compañia = $compañia;
             parent::__construct();
@@ -235,6 +237,14 @@ error_reporting(E_ALL);
 
         public function getId(){
             return $this->id;
+        }
+
+        public function setNombre($nombre){
+            $this->nombre = $nombre;
+        }
+
+        public function getNombre(){
+            return $this->nombre;
         }
 
         public function setCelular($celular){
@@ -255,8 +265,8 @@ error_reporting(E_ALL);
 
         public function insertData(){
             try {
-                $stm = $this->dbCnx -> prepare("INSERT INTO clientes (celular, compañia) values(?,?)");
-                $stm -> execute([$this->celular, $this->compañia]);
+                $stm = $this->dbCnx -> prepare("INSERT INTO clientes (nombre, celular, compañia) values(?,?,?)");
+                $stm -> execute([$this->nombre, $this->celular, $this->compañia]);
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -295,8 +305,8 @@ error_reporting(E_ALL);
 
         public function update(){
             try {
-                $stm = $this->dbCnx ->prepare("UPDATE clientes SET celular = ?, compañia = ? WHERE id =?");
-                $stm -> execute([$this->celular, $this->compañia,$this->id]);
+                $stm = $this->dbCnx ->prepare("UPDATE clientes SET nombre = ?, celular = ?, compañia = ? WHERE id =?");
+                $stm -> execute([$this->nombre, $this->celular, $this->compañia,$this->id]);
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -470,7 +480,7 @@ error_reporting(E_ALL);
 
     public function ClienteId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id/* ,nombre */ FROM clientes WHERE id=:clienteId");
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM clientes WHERE id=:clienteId");
             $stm->bindParam(":clienteId",$this->clienteId);
             $stm -> execute();
             return $stm -> fetchAll();
@@ -481,7 +491,7 @@ error_reporting(E_ALL);
 
     public function obtenerClienteId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id/* ,nombre */ FROM clientes");
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM clientes");
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {

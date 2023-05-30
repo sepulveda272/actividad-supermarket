@@ -16,6 +16,7 @@ $val = $record[0];
 //segundo paso
 
 if (isset($_POST['editar'])){
+    $data ->setNombre($_POST['nombre']);
     $data ->setCelular($_POST['celular']);
     $data ->setCompañia($_POST['compañia']);
     
@@ -94,6 +95,17 @@ if (isset($_POST['editar'])){
       <div class="menuTabla contenedor2">
       <form class="col d-flex flex-wrap" action=""  method="post">
               
+              <div class="mb-1 col-12">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input 
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  class="form-control"  
+                  value="<?php echo $val['nombre']?>"
+                 
+                />
+              </div>
 
               <div class="mb-1 col-12">
                 <label for="celular" class="form-label">Celular</label>

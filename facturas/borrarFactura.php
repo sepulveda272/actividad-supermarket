@@ -9,13 +9,13 @@ error_reporting(E_ALL);
 require_once("../config.php");
 
 
-$recordC = new ConfigEmpleados();
+$recordC = new ConfigFacturas();
 
-if (isset($_GET['id']) && isset($_GET['req'])){
+if (isset($_GET['facturaId']) && isset($_GET['req'])){
     if ($_GET['req'] == "delete"){
-        $recordC -> setId($_GET['id']);
+        $recordC -> setFacturaId($_GET['facturaId']);
         $recordC -> delete();
-        echo "<script>alert('Dato borrado satisfactoriamenteE ');document.location='empleados.php'</script>";        
+        echo "<script>alert('Dato borrado satisfactoriamenteE ');document.location='facturas.php'</script>";        
     }
 }
 ?>

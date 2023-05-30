@@ -152,7 +152,7 @@ $idcliente = $data->obtenerClienteId();
                   <?php
                     foreach($idcliente as $key => $valor){
                     ?> 
-                  <option value="<?= $valor["id"]?>"><?= $valor["id"]?></option>
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
                   <?php
                     }
                   ?>

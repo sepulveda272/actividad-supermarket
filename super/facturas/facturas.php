@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 require_once("../config.php");
 
+
 $data = new ConfigFacturas();
 $all = $data -> getAll();
 $idempleado = $data->obtenerEmpleadoId();
@@ -42,7 +43,7 @@ $idcliente = $data->obtenerClienteId();
         <h3>Juan David</h3>
       </div>
       <div class="menus">
-      <a href="/Home/home.php" style="display: flex;gap:2px;">
+      <a href="../../Login/loginRegister.php" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
@@ -94,8 +95,8 @@ $idcliente = $data->obtenerClienteId();
             ?> 
               <tr>
                 <td> <?= $val["facturaId"] ?> </td>
-                <td> <?= $val["empleadoId"] ?> </td>
-                <td> <?= $val["clienteId"] ?> </td>
+                <td> <?= $val["nombres"] ?> </td>
+                <td> <?= $val["nombre"] ?> </td>
                 <td> <?= $val["fecha"] ?> </td>
                 <td>
                   <a class="btn btn-outline-danger" href="borrarFactura.php?facturaId=<?=$val['facturaId']?>&req=delete">
@@ -138,7 +139,7 @@ $idcliente = $data->obtenerClienteId();
                   <?php
                     foreach($idempleado as $key => $valor){
                     ?> 
-                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombres"]?></option>
                   <?php
                     }
                   ?>
@@ -165,15 +166,13 @@ $idcliente = $data->obtenerClienteId();
                   type="date"
                   id="fecha"
                   name="fecha"
-                  class="form-control"
-                  required  
+                  class="form-control" 
                 />
-              </div>
-
+              </div> 
               <div class=" col-12 m-2">
                 <input type="submit" class="btn btn-primary" value="guardar" name="guardar"/>
               </div>
-            </form>  
+            </form>      
          </div>       
         </div>
       </div>

@@ -8,7 +8,7 @@
     }
 
     if(!defined("DB_NAME")){
-        define("DB_NAME", "campusv2");
+        define("DB_NAME", "superMercado;");
     }
 
     if(!defined("DB_USER")){

@@ -5,8 +5,8 @@ ini_set("display_startup_errors", 1);
 
 error_reporting(E_ALL);
 
-    require_once("db.php");
-
+    require_once(__DIR__ ."/../Config/db.php");
+    print_r(__DIR__);
     class ConexionPDO{
         protected $dbCnx;
         public function __construct(){
@@ -168,7 +168,7 @@ error_reporting(E_ALL);
 
         public function insertData(){
             try {
-                $stm = $this->dbCnx -> prepare("INSERT INTO empleado (nombre, celular, direccion, imagen) values(?,?,?,?)");
+                $stm = $this->dbCnx -> prepare("INSERT INTO empleado (nombres, celular, direccion, imagen) values(?,?,?,?)");
                 $stm -> execute([$this->nombre, $this->celular, $this->direccion,$this->imagen]);
             } catch (Exception $e) {
                 return $e->getMessage();
@@ -208,7 +208,7 @@ error_reporting(E_ALL);
 
         public function update(){
             try {
-                $stm = $this->dbCnx ->prepare("UPDATE empleado SET nombre = ?, celular = ?, direccion = ? WHERE id =?");
+                $stm = $this->dbCnx ->prepare("UPDATE empleado SET nombres = ?, celular = ?, direccion = ? WHERE id =?");
                 $stm -> execute([$this->nombre,$this->celular, $this->direccion,$this->id]);
             } catch (Exception $e) {
                 return $e->getMessage();
@@ -459,7 +459,7 @@ error_reporting(E_ALL);
 
     public function obtenerEmpleadoId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM empleado");
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombres FROM empleado");
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
@@ -469,7 +469,7 @@ error_reporting(E_ALL);
 
     public function EmpleadoId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM empleado WHERE id=:empleadoId");
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombres FROM empleado WHERE id=:empleadoId");
             $stm->bindParam(":empleadoId",$this->empleadoId);
             $stm -> execute();
             return $stm -> fetchAll();
@@ -514,7 +514,8 @@ error_reporting(E_ALL);
 
     public function getAll(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas");
+            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas INNER JOIN empleado ON facturas.empleadoId = empleado.id INNER JOIN clientes ON facturas.clienteId = clientes.id;
+            ");
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {

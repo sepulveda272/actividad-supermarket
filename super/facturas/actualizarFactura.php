@@ -1,5 +1,6 @@
 <?php
-require_once("facturas.php");
+/* require_once("facturas.php"); */
+require_once("../config.php");
 $data = new ConfigFacturas();
 $idFactura = $_GET["facturaId"];
 $idEmpleado = $_GET["empleadoId"];
@@ -103,14 +104,14 @@ if (isset($_POST["editar"])) {
                   <?php
                     foreach($idEmpleado as $key => $valor){
                     ?> 
-                  <option selected value="<?= $empleado["id"]?>"><?= $empleado["nombre"]?></option>
+                  <option selected value="<?= $empleado["id"]?>"><?= $empleado["nombres"]?></option>
                   <?php
                     }
                   ?>
                   <?php
                     foreach($idempleados as $key => $valor){
                     ?> 
-                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombres"]?></option>
                   <?php
                     }
                   ?>

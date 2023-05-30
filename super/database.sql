@@ -37,7 +37,7 @@ CREATE TABLE clientes(
 
 CREATE TABLE empleado(
     id INT primary key auto_increment,
-    nombre VARCHAR (50) NOT NULL,
+    nombres VARCHAR (50) NOT NULL,
     celular INT (20) NOT NULL,
     direccion VARCHAR (50) NOT NULL,
     imagen VARBINARY(50) NOT NULL

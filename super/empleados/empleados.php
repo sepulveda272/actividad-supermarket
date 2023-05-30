@@ -109,7 +109,7 @@ $all = $data-> obtainAll();
 
             <tr>
               <td class=""><?php echo $val['id']?></td>
-              <td><?php echo $val['nombre']?></td>
+              <td><?php echo $val['nombres']?></td>
               <td><?php echo $val['celular']?></td>
               <td><?php echo $val['direccion']?></td>
               <td><img class="imagenE" src="../images/<?php echo $val['imagen']?>" alt="nada"></td>

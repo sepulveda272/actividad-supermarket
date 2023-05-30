@@ -399,98 +399,154 @@ error_reporting(E_ALL);
         }
     }
     class ConfigFacturas extends ConexionPDO{
-        private $id;
-        private $id_empleado;
-        private $id_cliente;
+        private $facturaId;
+        private $empleadoId;
+        private $clienteId;
         private $fecha;
 
-        public function __construct($id = 0, $id_empleado = '', $id_cliente='', $fecha=''){
-            $this -> id = $id;
-            $this -> id_empleado = $id_empleado;
-            $this -> id_cliente = $id_cliente;
-            $this -> fecha = $fecha;
-            parent::__construct();
-        }
+    public function __construct($facturaId=0,$empleadoId= 0, $clienteId= 0, $fecha=0){
+        $this->facturaId = $facturaId;
+        $this->empleadoId = $empleadoId;
+        $this->clienteId = $clienteId;
+        $this->fecha = $fecha;
+        parent::__construct();
+    }
+    
+    //Getters
+    public function getFacturaId(){
+        return $this->facturaId;
+    }
 
-        public function setId($id){
-            $this->id = $id;
-        }
+    public function getEmpleadoId(){
+        return $this->empleadoId;
+    }
 
-        public function getId(){
-            return $this->id;
-        }
+    public function getClienteId(){
+        return $this->clienteId;
+    }
 
-        public function setId_empleado($id_empleado){
-            $this->id_empleado = $id_empleado;
-        }
+    public function getFecha(){
+        return $this->fecha;
+    }
 
-        public function getId_empleado(){
-            return $this->id_empleado;
-        }
+    //Setters
+    public function setFacturaId($facturaId){
+        $this->facturaId =$facturaId;
+    }
 
-        public function setId_cliente($id_cliente){
-            $this->id_cliente = $id_cliente;
-        }
+    public function setEmpleadoId($empleadoId){
+        $this->empleadoId =$empleadoId;
+    }
 
-        public function getId_cliente(){
-            return $this->id_cliente;
-        }
+    public function setClienteId($clienteId){
+        $this->clienteId =$clienteId;
+    }
 
-        public function setFecha($fecha){
-            $this->fecha = $fecha;
-        }
+    public function setFecha($fecha){
+        $this->fecha =$fecha;
+    }
 
-        public function getFecha(){
-            return $this->fecha;
-        }
 
-        public function insertData(){
-            try {
-                $stm = $this->dbCnx -> prepare("INSERT INTO facturas (id_empleado, id_cliente, fecha) values(?,?,?)");
-                $stm -> execute([$this->id_empleado, $this->id_cliente,$this->fecha]);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-            
-        }
-
-        public function obtainAll(){
-            try {
-                $stm = $this->dbCnx -> prepare("SELECT * FROM facturas");
-                $stm -> execute();
-                return $stm -> fetchAll();
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        public function delete(){
-            try {
-                $stm = $this->dbCnx -> prepare("DELETE FROM facturas WHERE id = ?");
-                $stm -> execute([$this->id]);
-                return $stm -> fetchAll();
-                echo "<script>alert('Registro eliminadoo');document.location='facturas.php'</script>";
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-        public function selectOne(){
-            try {
-                $stm = $this->dbCnx -> prepare("SELECT * FROM facturas WHERE id =?");
-                $stm -> execute([$this->id]);
-                return $stm->fetchAll();
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
-        }
-
-        public function update(){
-            try {
-                $stm = $this->dbCnx ->prepare("UPDATE facturas SET id_empleado = ?, id_cliente = ?, fecha = ? WHERE id =?");
-                $stm -> execute([$this->id_empleado,$this->id_cliente, $this->fecha,$this->id]);
-            } catch (Exception $e) {
-                return $e->getMessage();
-            }
+    public function obtenerEmpleadoId(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM empleado");
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
         }
     }
+
+    public function EmpleadoId(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM empleado WHERE id=:empleadoId");
+            $stm->bindParam(":empleadoId",$this->empleadoId);
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+
+    public function ClienteId(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT id/* ,nombre */ FROM clientes WHERE id=:clienteId");
+            $stm->bindParam(":clienteId",$this->clienteId);
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+
+    public function obtenerClienteId(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT id/* ,nombre */ FROM clientes");
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+
+    public function insertData(){
+        try {
+            $stm = $this-> dbCnx -> prepare("INSERT INTO facturas(empleadoId,clienteId,fecha) 
+            VALUES (:empleadoId,:clienteId,:fecha)");
+            $stm->bindParam(":empleadoId",$this->empleadoId);
+            $stm->bindParam(":clienteId",$this->clienteId);
+            $stm->bindParam(":fecha",$this->fecha);
+            $stm->execute();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+
+    public function getAll(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas");
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+    
+    public function delete(){
+        try {
+            $stm = $this-> dbCnx -> prepare("DELETE FROM facturas WHERE facturaId = :id");
+            $stm->bindParam(":id",$this->facturaId);
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+    
+    public function selectOne(){
+        try {
+            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas WHERE facturaId = :id");
+            $stm->bindParam(":id",$this->facturaId);
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+
+    public function update(){
+        try {
+            $stm = $this-> dbCnx -> prepare("UPDATE facturas SET empleadoId=:empleadoId , clienteId=:clienteId , fecha=:fecha
+            WHERE facturaId = :id");
+            $stm->bindParam(":id",$this->facturaId);
+            $stm->bindParam(":empleadoId",$this->empleadoId);
+            $stm->bindParam(":clienteId",$this->clienteId);
+            $stm->bindParam(":fecha",$this->fecha);
+            $stm -> execute();
+            return $stm -> fetchAll();
+        } catch (Exception $e) {
+            return $e->getMessages();
+        }
+    }
+}
 ?>

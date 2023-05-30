@@ -46,12 +46,13 @@ CREATE TABLE empleado(
 -- ////////////////////////FACTURA////////////////////////
 
 CREATE TABLE facturas(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_cliente INT,
-    id_empleado INT,
-    fecha VARCHAR(50),
-    Foreign Key fk_id_empleado (id_empleado) REFERENCES empleado(id),
-    Foreign Key fk_id_cliente (id_cliente) REFERENCES clientes(id)
+    facturaId INT NOT NULL AUTO_INCREMENT,
+    empleadoId INT,
+    clienteId INT,
+    fecha DATE,
+    PRIMARY KEY(facturaId),
+    FOREIGN KEY (empleadoId) REFERENCES empleado(id),
+    FOREIGN KEY (clienteId) REFERENCES clientes(id)
 );
 
 

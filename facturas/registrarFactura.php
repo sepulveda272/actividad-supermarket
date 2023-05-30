@@ -1,21 +1,19 @@
 <?php
-ini_set("display_errors", 1);
-
-ini_set("display_startup_errors", 1);
-
-error_reporting(E_ALL);
-if (isset($_POST['guardar'])) {
-    require_once('../config.php');
+if(isset($_POST["guardar"])){
+    require_once("facturas.php");
 
     $config = new ConfigFacturas();
+
+    $config->setFacturaId($_POST["facturaId"]);
+    $config->setEmpleadoId($_POST["empleadoId"]);
+    $config->setClienteId($_POST["clienteId"]);
+    $config->setFecha($_POST["fecha"]);
     
-    $config -> setId_empleado($_POST['id_empleado']);
-    $config -> setId_cliente($_POST['id_cliente']);
-    $config -> setFecha($_POST['fecha']);
+    $config->insertData();
 
-    $config -> insertData();
-
-    echo "<script>alert('Los datos fueron guardados satisfactoriamentee ');document.location='facturas.php'</script>";
+    echo "
+    <script> alert('Los datos fueron guardados exitosamente');
+    document.location='facturas.php'
+    </script>"; 
 }
-
 ?>

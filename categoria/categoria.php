@@ -112,8 +112,8 @@ $all = $data-> obtainAll();
               <td><?php echo $val['descripcion']?></td>
               <td><img class="imagenE" src="../images/<?php echo $val['imagen']?>" alt="nada"></td>
               <td>
-                <a class="btn btn-danger" href="borrarCategoria.php?id=<?=$val['id']?>&req=delete">Borrar</a>
-                <a class="btn btn-warning" href="actualizarCategoria.php?id=<?=$val['id']?>">Editar</a>
+                <a class="btn btn-outline-danger" href="borrarCategoria.php?id=<?=$val['id']?>&req=delete"><i class="bi bi-trash3"></i>Borrar</a>
+                <a class="btn btn-outline-warning" href="actualizarCategoria.php?id=<?=$val['id']?>"><i class="bi bi-pencil-square"></i>Editar</a>
               </td>
             </tr>
             <?php } ?>

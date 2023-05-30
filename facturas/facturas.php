@@ -6,24 +6,27 @@ ini_set("display_startup_errors", 1);
 
 error_reporting(E_ALL);
 
-?>
+require_once("../config.php");
 
+$data = new ConfigFacturas();
+$all = $data -> getAll();
+$idempleado = $data->obtenerEmpleadoId();
+$idcliente = $data->obtenerClienteId();
+
+?>
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página </title>
+  <title>Página Facturas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-
   <link rel="stylesheet" type="text/css" href="../css/estudiantes.css">
 
 </head>
@@ -36,14 +39,13 @@ error_reporting(E_ALL);
       <div class="perfil">
         <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
         <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
-        <h3>Juan Sepulveda</h3>
+        <h3>Juan David</h3>
       </div>
       <div class="menus">
-        <a href="/Home/home.php" style="display: flex;gap:2px;">
+      <a href="/Home/home.php" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
-        
         <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Categoriaa</h3>
@@ -64,7 +66,6 @@ error_reporting(E_ALL);
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Facturas</h3>
         </a>
-
       </div>
     </div>
 
@@ -78,70 +79,94 @@ error_reporting(E_ALL);
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">EMPLEADO</th>
-              <th scope="col">CLIENTE</th>
+              <th scope="col">EMPLEADO ID</th>
+              <th scope="col">CLIENTE ID</th>
               <th scope="col">FECHA</th>
               <th scope="col">BORRAR</th>
+              <th scope="col">EDITAR</th>
             </tr>
           </thead>
           <tbody class="" id="tabla">
 
             <!-- ///////Llenado DInamico desde la Base de Datos -->
-            
-
+            <?php
+              foreach($all as $key => $val){
+            ?> 
+              <tr>
+                <td> <?= $val["facturaId"] ?> </td>
+                <td> <?= $val["empleadoId"] ?> </td>
+                <td> <?= $val["clienteId"] ?> </td>
+                <td> <?= $val["fecha"] ?> </td>
+                <td>
+                  <a class="btn btn-outline-danger" href="borrarFactura.php?facturaId=<?=$val['facturaId']?>&req=delete">
+                  <i class="bi bi-trash3"></i>Borrar</a>
+                </td>
+                <td>
+                  <a class="btn btn-outline-warning" href="actualizarFactura.php?facturaId=<?=$val['facturaId']?>&empleadoId=<?=$val['empleadoId']?>&clienteId=<?=$val['clienteId']?>">
+                  <i class="bi bi-pencil-square"></i>Editar</a>
+                </td>
+              </tr>
+            <?php
+              }
+            ?>
           </tbody>
-        
-       </table>
-
+        </table>
       </div>
-
-
     </div>
-
+    
     <div class="parte-derecho " id="detalles">
-      <h3>Detalle Estudiantes</h3>
+      <h3>Detalle Clientes</h3>
       <p>Cargando...</p>
        <!-- ///////Generando la grafica -->
 
     </div>
-
-
-
-
 
     <!-- /////////Modal de registro de nuevo estuiante //////////-->
     <div class="modal fade" id="registrarEstudiantes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="backdrop-filter: blur(5px)">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
         <div class="modal-content" >
           <div class="modal-header" >
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva factura</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Nueva Proveedores</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body" style="background-color: rgb(231, 253, 246);">
             <form class="col d-flex flex-wrap" action="registrarFactura.php" method="post">
               <div class="mb-1 col-12">
-                <label for="id_empleado" class="form-label">Empleado</label>
-                <select class="form-control" name="id_empleado" id="id_empleado">
-                  <option value="">Seleccione empleado</option>
-                  <option value="id_empleado">coso</option>
+                <label for="empleadoId" class="form-label">Empleado Id</label>
+                <select class="form-select" aria-label="Default select example" id="empleadoId" name="empleadoId" required>
+                  <option selected>Seleccione el id del Empleados</option>
+                  <?php
+                    foreach($idempleado as $key => $valor){
+                    ?> 
+                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <?php
+                    }
+                  ?>
                 </select>
               </div>
 
               <div class="mb-1 col-12">
-                <label for="id_cliente" class="form-label">Cliente</label>
-                <select class="form-control" name="id_cliente" id="id_cliente">
-                  <option value="">Seleccione cliente</option>
-                  <option value="id_cliente">cosa</option>
+                <label for="clienteId" class="form-label">Cliente Id</label>
+                <select class="form-select" aria-label="Default select example" id="clienteId" name="clienteId" required>
+                  <option selected>Seleccione el id del Cliente</option>
+                  <?php
+                    foreach($idcliente as $key => $valor){
+                    ?> 
+                  <option value="<?= $valor["id"]?>"><?= $valor["id"]?></option>
+                  <?php
+                    }
+                  ?>
                 </select>
               </div>
 
               <div class="mb-1 col-12">
-                <label for="fecha" class="form-label">Fecha</label>
+                <label for="fecha" class="form-label">fecha</label>
                 <input 
                   type="date"
                   id="fecha"
                   name="fecha"
-                  class="form-control"  
+                  class="form-control"
+                  required  
                 />
               </div>
 

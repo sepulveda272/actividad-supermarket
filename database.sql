@@ -1,4 +1,5 @@
-CREATE DATABASE campusv2
+-- Active: 1685461181766@@127.0.0.1@3306@campusv2
+CREATE DATABASE campusv2;
 
 
 

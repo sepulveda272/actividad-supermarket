@@ -4,7 +4,15 @@ CREATE DATABASE superMercado;
 
 
 
-
+-- /////////////////////////USER/////////////////////////////
+CREATE TABLE users(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    IDEmpleado INT NOT NULL,
+    email VARCHAR (80) NOT NULL,
+    username VARCHAR (80) NOT NULL,
+    password VARCHAR (60) NOT NULL,
+    FOREIGN KEY (IDEmpleado) REFERENCES empleado (id)
+    );
 
 
 -- ////////////////////////CATEGORIAS////////////////////////
@@ -25,7 +33,7 @@ CREATE TABLE categorias(
 -- ////////////////////////CLIENTES////////////////////////
 
 CREATE TABLE clientes(
-    id INT primary key auto_increment,
+    idClientes INT primary key auto_increment,
     nombre VARCHAR (50) NOT NULL,
     celular INT (20) NOT NULL,
     compañia VARCHAR (50) NOT NULL
@@ -54,7 +62,7 @@ CREATE TABLE facturas(
     fecha DATE,
     PRIMARY KEY(facturaId),
     FOREIGN KEY (empleadoId) REFERENCES empleado(id),
-    FOREIGN KEY (clienteId) REFERENCES clientes(id)
+    FOREIGN KEY (clienteId) REFERENCES clientes(idClientes)
 );
 
 

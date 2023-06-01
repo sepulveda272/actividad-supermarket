@@ -3,8 +3,8 @@
 require_once(/* __DIR__ .  */"../config.php");
 $data = new ConfigClientes();
 
-$id = $_GET['id'];
-$data->setId($id);
+$id = $_GET['idClientes'];
+$data->setIdClientes($id);
 
 $record = $data->selectOne();
 /* print_r($record); */

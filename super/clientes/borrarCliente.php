@@ -11,9 +11,9 @@ require_once("../config.php");
 
 $recordC = new ConfigClientes();
 
-if (isset($_GET['id']) && isset($_GET['req'])){
+if (isset($_GET['idClientes']) && isset($_GET['req'])){
     if ($_GET['req'] == "delete"){
-        $recordC -> setId($_GET['id']);
+        $recordC -> setIdClientes($_GET['idClientes']);
         $recordC -> delete();
         echo "<script>alert('Dato borrado satisfactoriamenteE ');document.location='clientes.php'</script>";        
     }

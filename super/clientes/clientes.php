@@ -45,7 +45,7 @@ $all = $data-> obtainAll();
         <h3>Juan Sepulveda</h3>
       </div>
       <div class="menus">
-        <a href="/Home/home.php" style="display: flex;gap:2px;">
+        <a href="../../Home/home.php" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
@@ -69,7 +69,10 @@ $all = $data-> obtainAll();
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Facturas</h3>
         </a>
-
+        <a href="../../Login/loginRegister.php" style="display: flex;gap:2px;color: brown;">
+          <i class="bi bi-x-square"></i>
+          <h3 style="margin: 0px;">salir</h3>
+        </a>
       </div>
     </div>
 
@@ -106,13 +109,13 @@ $all = $data-> obtainAll();
             ?>
 
             <tr>
-              <td class=""><?php echo $val['id']?></td>
+              <td class=""><?php echo $val['idClientes']?></td>
               <td><?php echo $val['nombre']?></td>
               <td><?php echo $val['celular']?></td>
               <td><?php echo $val['compañia']?></td>
               <td>
-                <a class="btn btn-danger" href="borrarCliente.php?id=<?=$val['id']?>&req=delete">Borrar</a>
-                <a class="btn btn-warning" href="actualizarCliente.php?id=<?=$val['id']?>">Editar</a>
+                <a class="btn btn-danger" href="borrarCliente.php?idClientes=<?=$val['idClientes']?>&req=delete">Borrar</a>
+                <a class="btn btn-warning" href="actualizarCliente.php?idClientes=<?=$val['idClientes']?>">Editar</a>
               </td>
             </tr>
             <?php } ?>

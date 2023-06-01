@@ -1,6 +1,6 @@
 <?php
 //primer paso
-require_once(                                             "../config.php");
+require_once("../config.php");
 $data = new ConfigEmpleados();
 
 $id = $_GET['id'];
@@ -10,6 +10,7 @@ $record = $data->selectOne();
 /* print_r($record); */
 
 $val = $record[0];
+/* print_r($val); */
 
 /* print_r($val);*/
 
@@ -19,9 +20,10 @@ if (isset($_POST['editar'])){
     $data ->setNombre($_POST['nombre']);
     $data ->setCelular($_POST['celular']);
     $data ->setDireccion($_POST['direccion']);
-    
+    /* print_r($data); */
 
-    $data ->update();
+    $data->update();
+    print_r($data);
     echo "<script>alert('Datos actualizados satisfactoriamente');document.location='empleados.php'</script>";
 }
 ?>
@@ -100,7 +102,7 @@ if (isset($_POST['editar'])){
                   id="nombre"
                   name="nombre"
                   class="form-control"  
-                  value="<?php echo $val['nombre']?>"
+                  value="<?php echo $val['nombres']?>"
                 />
               </div>
 

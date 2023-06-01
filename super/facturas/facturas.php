@@ -43,7 +43,7 @@ $idcliente = $data->obtenerClienteId();
         <h3>Juan David</h3>
       </div>
       <div class="menus">
-      <a href="../../Login/loginRegister.php" style="display: flex;gap:2px;">
+      <a href="../../Home/home.php" style="display: flex;gap:2px;">
           <i class="bi bi-house-door"> </i>
           <h3 style="margin: 0px;">Home</h3>
         </a>
@@ -66,6 +66,10 @@ $idcliente = $data->obtenerClienteId();
         <a href="facturas.php" style="display: flex;gap:2px;">
         <i class="bi bi-cart-check"></i>
           <h3 style="margin: 0px;">Facturas</h3>
+        </a>
+        <a href="../../Login/loginRegister.php" style="display: flex;gap:2px;color: brown;">
+          <i class="bi bi-x-square"></i>
+          <h3 style="margin: 0px;">salir</h3>
         </a>
       </div>
     </div>
@@ -153,7 +157,7 @@ $idcliente = $data->obtenerClienteId();
                   <?php
                     foreach($idcliente as $key => $valor){
                     ?> 
-                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <option value="<?= $valor["idClientes"]?>"><?= $valor["nombre"]?></option>
                   <?php
                     }
                   ?>

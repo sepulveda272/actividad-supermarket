@@ -6,7 +6,7 @@ ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
     require_once(__DIR__ ."/../Config/db.php");
-    print_r(__DIR__);
+    /* print_r(__DIR__); */
     class ConexionPDO{
         protected $dbCnx;
         public function __construct(){
@@ -208,8 +208,9 @@ error_reporting(E_ALL);
 
         public function update(){
             try {
-                $stm = $this->dbCnx ->prepare("UPDATE empleado SET nombres = ?, celular = ?, direccion = ? WHERE id =?");
-                $stm -> execute([$this->nombre,$this->celular, $this->direccion,$this->id]);
+                $stm=$this->dbCnx->prepare("UPDATE empleado SET nombres = ?, celular = ?, direccion = ? WHERE id = ?");
+                $stm->execute([$this->nombre,$this->celular, $this->direccion,$this->id]);
+                return $stm->fetchAll();
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -217,26 +218,26 @@ error_reporting(E_ALL);
     }
 
     class ConfigClientes extends ConexionPDO{
-        private $id;
+        private $idClientes;
         private $nombre;
         private $celular;
         private $compañia;
         
 
-        public function __construct($id = 0, $nombre ='', $celular=0,$compañia=""){
-            $this -> id = $id;
+        public function __construct($idClientes = 0, $nombre ='', $celular=0,$compañia=""){
+            $this -> idClientes = $idClientes;
             $this -> nombre = $nombre;
             $this -> celular = $celular;
             $this -> compañia = $compañia;
             parent::__construct();
         }
 
-        public function setId($id){
-            $this->id = $id;
+        public function setIdClientes($idClientes){
+            $this->idClientes = $idClientes;
         }
 
-        public function getId(){
-            return $this->id;
+        public function getIdClientes(){
+            return $this->idClientes;
         }
 
         public function setNombre($nombre){
@@ -285,8 +286,8 @@ error_reporting(E_ALL);
 
         public function delete(){
             try {
-                $stm = $this->dbCnx -> prepare("DELETE FROM clientes WHERE id = ?");
-                $stm -> execute([$this->id]);
+                $stm = $this->dbCnx -> prepare("DELETE FROM clientes WHERE idClientes = ?");
+                $stm -> execute([$this->idClientes]);
                 return $stm -> fetchAll();
                 echo "<script>alert('Registro eliminadooo');document.location='clientes.php'</script>";
             } catch (Exception $e) {
@@ -295,8 +296,8 @@ error_reporting(E_ALL);
         }
         public function selectOne(){
             try {
-                $stm = $this->dbCnx -> prepare("SELECT * FROM clientes WHERE id =?");
-                $stm -> execute([$this->id]);
+                $stm = $this->dbCnx -> prepare("SELECT * FROM clientes WHERE idClientes =?");
+                $stm -> execute([$this->idClientes]);
                 return $stm->fetchAll();
             } catch (Exception $e) {
                 return $e->getMessage();
@@ -305,8 +306,8 @@ error_reporting(E_ALL);
 
         public function update(){
             try {
-                $stm = $this->dbCnx ->prepare("UPDATE clientes SET nombre = ?, celular = ?, compañia = ? WHERE id =?");
-                $stm -> execute([$this->nombre, $this->celular, $this->compañia,$this->id]);
+                $stm = $this->dbCnx ->prepare("UPDATE clientes SET nombre = ?, celular = ?, compañia = ? WHERE idClientes =?");
+                $stm -> execute([$this->nombre, $this->celular, $this->compañia,$this->idClientes]);
             } catch (Exception $e) {
                 return $e->getMessage();
             }
@@ -408,11 +409,14 @@ error_reporting(E_ALL);
             }
         }
     }
-    class ConfigFacturas extends ConexionPDO{
-        private $facturaId;
-        private $empleadoId;
-        private $clienteId;
-        private $fecha;
+
+
+class ConfigFacturas extends ConexionPDO{
+    
+    private $facturaId;
+    private $empleadoId;
+    private $clienteId;
+    private $fecha;
 
     public function __construct($facturaId=0,$empleadoId= 0, $clienteId= 0, $fecha=0){
         $this->facturaId = $facturaId;
@@ -463,7 +467,7 @@ error_reporting(E_ALL);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
@@ -474,28 +478,28 @@ error_reporting(E_ALL);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
     public function ClienteId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM clientes WHERE id=:clienteId");
+            $stm = $this-> dbCnx -> prepare("SELECT idClientes,nombre FROM clientes WHERE id=:clienteId");
             $stm->bindParam(":clienteId",$this->clienteId);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
     public function obtenerClienteId(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT id,nombre FROM clientes");
+            $stm = $this-> dbCnx -> prepare("SELECT idClientes,nombre FROM clientes");
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
@@ -508,18 +512,17 @@ error_reporting(E_ALL);
             $stm->bindParam(":fecha",$this->fecha);
             $stm->execute();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
     public function getAll(){
         try {
-            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas INNER JOIN empleado ON facturas.empleadoId = empleado.id INNER JOIN clientes ON facturas.clienteId = clientes.id;
-            ");
+            $stm = $this-> dbCnx -> prepare("SELECT * FROM facturas INNER JOIN empleado ON facturas.empleadoId = empleado.id INNER JOIN clientes ON facturas.clienteId = clientes.idClientes");
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
     
@@ -530,7 +533,7 @@ error_reporting(E_ALL);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
     
@@ -541,7 +544,7 @@ error_reporting(E_ALL);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 
@@ -556,8 +559,9 @@ error_reporting(E_ALL);
             $stm -> execute();
             return $stm -> fetchAll();
         } catch (Exception $e) {
-            return $e->getMessages();
+            return $e->getMessage();
         }
     }
 }
+
 ?>

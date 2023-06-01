@@ -18,7 +18,7 @@
         <div class="section1">
            
          <div class="d-flex justify-content-center align-items-center">
-            <img src="img/camper.png" alt="" class="logo"></div>
+            <img src="https://static.vecteezy.com/system/resources/previews/005/766/127/non_2x/supermarket-shop-logo-vector.jpg" alt="" class="logo"></div>
             <div class="d-flex justify-content-center align-items-center"><h1 style="font-weight: 800;">BIENVENIDOS</h1></div>
             <div  class="d-flex justify-content-center align-items-center" >
                 <form action= "loguearse.php" method = "POST">
@@ -101,7 +101,7 @@
                   </form>
 
             </div>
-            <div class="d-flex justify-content-center align-items-end m-5"><img src="img/Diseño sin título (1).png" alt="" style="width: 50%; height: 10%; object-fit: cover;" ></div>
+            <div class="d-flex justify-content-center align-items-end m-5"><img src="https://img.freepik.com/vector-gratis/gente-supermercado-dibujos-animados-plano-madre-familia-padre-e-hijos_33099-180.jpg?w=2000" alt="" style="width: 50%; height: 10%; object-fit: cover;" ></div>
                   
 
 

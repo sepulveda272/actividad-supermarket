@@ -1,14 +1,24 @@
 <?php
+
+ini_set("display_errors", 1);
+
+ini_set("display_startup_errors", 1);
+
+error_reporting(E_ALL);
+
 /* require_once("facturas.php"); */
 require_once("../config.php");
 $data = new ConfigFacturas();
+
+print_r($_GET);
+
 $idFactura = $_GET["facturaId"];
 $idEmpleado = $_GET["empleadoId"];
 $idCliente= $_GET["clienteId"]; 
 
 $data->setFacturaId($idFactura);
 $data->setEmpleadoId($idEmpleado);
-$data->setClienteId($idCliente);
+$data->setClienteId($clienteId);
 
 
 $empleado = $data->EmpleadoId();
@@ -30,7 +40,7 @@ if (isset($_POST["editar"])) {
   $data->update();
    echo "
     <script> alert('Los Datos fueron Actualizados exitosamente');
-    document.location='facturas.php'
+    document.location='../../Templates/Facturas.php'
     </script>"; 
 }
 
@@ -60,35 +70,39 @@ if (isset($_POST["editar"])) {
 
     <div class="parte-izquierda">
 
-    <div class="perfil">
-        <h3 style="margin-bottom: 2rem;">Camper Skills.</h3>
-        <img src="../images/sepulveda.jpg" alt="" class="imagenPerfil">
-        <h3>Juan David</h3>
+      <div class="perfil">
+        <h3 style="margin-bottom: 2rem;">Camp Skiler.</h3>
+        <img src="../../Templates/assets/images/Calamardo.jpeg" alt="" class="imagenPerfil">
+        <h3 >Cristian Diaz</h3>
       </div>
       <div class="menus">
-      <a href="/Home/home.php" style="display: flex;gap:2px;">
-          <i class="bi bi-house-door"> </i>
-          <h3 style="margin: 0px;">Home</h3>
+        <a href="../../Templates/Categorias.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Categorias</h3>
         </a>
-        <a href="../categoria/categoria.php" style="display: flex;gap:2px;">
-        <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Categoriaa</h3>
+        <a href="../../Templates/Clientes.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Clientes</h3>
         </a>
-        <a href="../empleados/empleados.php" style="display: flex;gap:2px;">
-        <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Empleados</h3>
+        <a href="../../Templates/Empleados.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Empleados</h3>
         </a>
-        <a href="../clientes/clientes.php" style="display: flex;gap:2px;">
-        <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Clientess</h3>
+        <a href="../../Templates/Facturas.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Facturas</h3>
         </a>
-        <a href="../proveedaores/provedores.php" style="display: flex;gap:2px;">
-        <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Proveedores</h3>
+        <a href="../../Templates/Proveedores.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Proveedores</h3>
         </a>
-        <a href="facturas.php" style="display: flex;gap:2px;">
-        <i class="bi bi-cart-check"></i>
-          <h3 style="margin: 0px;">Facturas</h3>
+        <a href="../../Templates/Productos.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Productos</h3>
+        </a>
+        <a href="../../Templates/FacturaDetalle.php" style="display: flex;gap:1px;">
+          <i class="bi bi-people"></i>
+          <h3>Factura Detalle</h3>
         </a>
       </div>
     </div>
@@ -124,14 +138,14 @@ if (isset($_POST["editar"])) {
                   <?php
                     foreach($idCliente as $key => $valor){
                     ?> 
-                  <option selected value="<?= $cliente["id"]?>"><?= $cliente["nombre"]?></option>
+                  <option selected value="<?= $cliente["idClientes"]?>"><?= $cliente["nombre"]?></option>
                   <?php
                     }
                   ?>
                   <?php
                     foreach($idclientes as $key => $valor){
                     ?> 
-                  <option value="<?= $valor["id"]?>"><?= $valor["nombre"]?></option>
+                  <option value="<?= $valor["idClientes"]?>"><?= $valor["nombre"]?></option>
                   <?php
                     }
                   ?>
